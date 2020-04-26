@@ -15,8 +15,8 @@ const formatNumber = n => {
 }
 
 function getLoginToken(userID, appid) {
-  let { tokenURL, liveAppID } = getApp().globalData;
-  let isDemoApp = [1739272706].includes(liveAppID);
+  let { tokenURL, appID } = getApp().globalData;
+  let isDemoApp = [1739272706].includes(appID);
   let url = isDemoApp ? 'https://wssliveroom-demo.zego.im/token' : tokenURL;
   let data = {
       app_id: appid,

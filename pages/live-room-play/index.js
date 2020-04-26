@@ -8,7 +8,7 @@ let zgPlayer;
 const TAG_NAME = 'LIVE_ROOM_PLAY';
 
 const app = getApp();
-let { liveAppID, wsServerURL, logServerURL } = app.globalData;
+let { appID, server, logUrl } = app.globalData;
 
 Page({
 
@@ -16,9 +16,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    liveAppID: liveAppID,
-    wsServerURL: wsServerURL,
-    logServerURL: logServerURL,
+    appID: appID,
+    server: server,
+    logUrl: logUrl,
     roomID: "",
     userID: "",
     userName: "",
@@ -61,13 +61,13 @@ Page({
     
     zg = new ZegoClient();
     zg.config({
-      appid: this.data.liveAppID, // 必填，应用id，由即构提供
+      appid: this.data.appID, // 必填，应用id，由即构提供
       idName: this.data.userID, // 必填，用户自定义id，全局唯一
       nickName: this.data.userName, // 必填，用户自定义昵称
       remoteLogLevel: 2, // 日志上传级别，建议取值不小于 logLevel
       logLevel: 0, // 日志级别，debug: 0, info: 1, warn: 2, error: 3, report: 99, disable: 100（数字越大，日志越少）
-      server: this.data.wsServerURL, // 必填，服务器地址，由即构提供
-      logUrl: this.data.logServerURL, // 必填，log 服务器地址，由即构提供
+      server: this.data.server, // 必填，服务器地址，由即构提供
+      logUrl: this.data.logUrl, // 必填，log 服务器地址，由即构提供
       audienceCreateRoom: false // false观众不允许创建房间
     });
     
@@ -171,7 +171,7 @@ Page({
       beToPlay: true
     })
     if (!this.data.playing) {
-      getLoginToken(this.data.userID, liveAppID).then(token => {
+      getLoginToken(this.data.userID, appID).then(token => {
         zg.login(this.data.roomID, 1, token, streamList => {
           console.log(TAG_NAME, 'login room succeeded', streamList);
           
