@@ -13,7 +13,7 @@
   },
   "plugins": {
     "zego-e-commerce": {
-      "version": "1.0.3",
+      "version": "1.0.4",
       "provider": "wx2b8909dae7727f25"
     }
   },

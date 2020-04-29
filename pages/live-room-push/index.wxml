@@ -13,7 +13,8 @@
         minBitrate="{{minBitrate}}" 
         maxBitrate="{{maxBitrate}}" 
         zoom="{{zoom}}"
-
+        mirror="{{mirror}}"
+        localMirror="{{localMirror}}"
         mode="{{mode}}"
         muted="{{muted}}"
         beauty="{{beauty}}" 
@@ -73,6 +74,14 @@
         <view class='bottom_box'>
             <image class="bottom_button" src="../images/camera.png" bindtap='onSnapshotClick'></image>
             <view class='bottom_text'>截图</view>
+        </view>
+        <view class='bottom_box'>
+            <image class="bottom_button" src="../images/{{enableCamera?'off':'camera-dis'}}.png" bindtap='onMirrorClick'></image>
+            <view class='bottom_text'>镜像</view>
+        </view>
+        <view class='bottom_box'>
+            <image class="bottom_button" src="../images/{{enableCamera?'off':'camera-dis'}}.png" bindtap='onLocalMirrorClick'></image>
+            <view class='bottom_text'>本地镜像</view>
         </view>
     </view>
 </view>

@@ -15,7 +15,9 @@
         objectFit="{{objectFit}}" 
         class="play-content" 
         bindstatechange="onPlayStateChange" 
-        bindnetstatus="onPlayNetStateChange">
+        bindnetstatus="onPlayNetStateChange"
+        bindenterpictureinpicture="onEnterPictureInPicture"
+        bindleavepictureinpicture="onLeavePictureInPicture">
     </zego-player>
     <view style="width:100%; height: 50px; position:absolute; bottom:30px;padding-left:calc(100% / 7);">
         <view class='bottom_box'>

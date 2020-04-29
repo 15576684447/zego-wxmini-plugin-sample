@@ -49,6 +49,8 @@ Page({
     zoom: false,
     devicePosition:'front',  //初始化摄像头为前置还是后置，只能初始化的时候设置，动态调整用switchCamera
     frontCamera: true,
+    mirror: false,
+    localMirror: 'disable'
   },
 
   /**
@@ -105,7 +107,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    zg && zg.stopPublishingStream(this.data.pusherInfo.streamID);
+    zgPusher && zgPusher.stop();
+    zg && zg.logout();
   },
 
   bindCallBack() {
@@ -147,6 +151,10 @@ Page({
         })
       } 
     }
+
+    zg.onPublishQualityUpdate = (streamID, streamQuality) => {
+      console.log(`${TAG_NAME}  onPublishQualityUpdate ${streamID}`, streamQuality);
+    };
   },
 
   onPushClick() {
@@ -277,6 +285,18 @@ Page({
       }
     });
   },
+  onMirrorClick() {
+    this.setData({
+      mirror: !this.data.mirror
+    });
+  },
+  onLocalMirrorClick() {
+    console.warn('localMirror', this.data.localMirror);
+    const localMirror = this.data.localMirror === 'enable' ? 'disable' : 'enable';
+    this.setData({
+      localMirror 
+    })
+  },
   onPushStateChange(e) {
     console.log(
       `${TAG_NAME} onPushStateChange `, 
@@ -286,6 +306,10 @@ Page({
     zg.updatePlayerState(this.data.pusherInfo.streamID, e);
   },
   onPushNetStateChange(e) {
+    console.log(
+      `${TAG_NAME} onPushNetStateChange `,
+      e.detail.info
+    );
     zg.updatePlayerNetStatus(this.data.pusherInfo.streamID, e);
   },
   

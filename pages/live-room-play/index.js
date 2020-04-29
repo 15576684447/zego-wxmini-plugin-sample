@@ -31,7 +31,7 @@ Page({
     maxCache: 3,
     muted: false,
     debug: false,
-    pictureInPictureMode: "",
+    pictureInPictureMode: "pop",
 
     playerInfo: {
       streamID: "",
@@ -162,13 +162,17 @@ Page({
       } 
 
     };
+
+    zg.onPlayQualityUpdate = (streamID, streamQuality) => {
+      console.log(`${TAG_NAME} onPlayStateUpdate ${streamID}`, streamQuality);
+    };
   },
 
   onPlayClick() {
-    if (this.data.beToPlay) return;
+    if (this.data.beginToPlay) return;
     
     this.setData({
-      beToPlay: true
+      beginToPlay: true
     })
     if (!this.data.playing) {
       getLoginToken(this.data.userID, appID).then(token => {
@@ -182,6 +186,15 @@ Page({
         }, err => {
           console.error(TAG_NAME, 'login room fail', err);
         })
+      })
+    } else {
+      zg.stopPlayingStream(this.data.playerInfo.streamID);
+      zgPlayer.stop();
+      this.data.playerInfo = { streamID: '', url: '' }
+      this.setData({
+        playing: false,
+        beginToPlay: false,
+        playerInfo: this.data.playerInfo
       })
     }
   },
@@ -219,7 +232,18 @@ Page({
   },
 
   onPlayNetStateChange(e) {
+    console.log(
+      `${TAG_NAME} onPlayNetStateChange `,
+      e.detail.info
+    );
     zg.updatePlayerNetStatus(e.detail.streamID, e);
   },
 
+  onEnterPictureInPicture(e) {
+    console.error(`${TAG_NAME} onEnterPictureInPicture`, e);
+  },
+
+  onLeavePictureInPicture(e) {
+    console.error(`${TAG_NAME} onLeavePictureInPicture`, e);
+  }
 })
