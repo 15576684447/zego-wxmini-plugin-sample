@@ -96,7 +96,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    zg && zg.stopPlayingStream(this.data.playerInfo.streamID);
+    zgPlayer && zgPlayer.stop();
+    zg && zg.logout();
   },
 
   bindCallBack() {
