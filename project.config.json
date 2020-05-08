@@ -25,7 +25,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.11.0",
-	"appid": "wxda1343baad77dc86",
+	"appid": "在这填写您的微信小程序AppID",
 	"projectname": "zego-wxmini-plugin-sample",
 	"debugOptions": {
 		"hidedInDevtools": []
