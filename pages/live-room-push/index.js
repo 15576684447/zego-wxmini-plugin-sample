@@ -25,7 +25,7 @@ Page({
     userName: "",
     pusherInfo: {
       streamID: "",
-      url: ""
+      url: "rtmp://"
     },
     beginToPush: false,
     publishing: false,
@@ -87,6 +87,8 @@ Page({
     this.bindCallBack();
 
     zgPusher = this.selectComponent("#zg-pusher");
+    console.log('zgPusher', zgPusher);
+    zgPusher.startPreview();
   },
 
   /**
